@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: Car Tracker API
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: "jdbc:mysql://google/car_tracker_db?useSSL=false&cloudSqlInstance=car-tracker-api-219421:us-central1:car-tracker-v2&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=root&password=Powai@123"
+    password: "Powai@123"
+    username: "root"
+    testOnBorrow: true
+    testWhileIdle: true
+    validationQuery: SELECT 1
+    max-active: 15
+    max-idle: 10
+    max-wait: 8000
