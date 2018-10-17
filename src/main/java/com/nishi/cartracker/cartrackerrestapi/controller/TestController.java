@@ -45,6 +45,7 @@ public class TestController {
        return "saved";
     }
 
+    @CrossOrigin(origins = "http://mocker.ennate.academy")
     @RequestMapping(path="/vehicles", method = RequestMethod.PUT, consumes = "application/json")
     public @ResponseBody String addNewVehicles(@RequestBody ArrayList<Vehicle> vehicles){
         Iterator<Vehicle> vehicleIterator = vehicles.iterator();
