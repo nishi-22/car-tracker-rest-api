@@ -1,6 +1,10 @@
 spring:
   application:
     name: Car Tracker API
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     url: "jdbc:mysql://google/car_tracker_db?useSSL=false&cloudSqlInstance=car-tracker-api-219421:us-central1:car-tracker-v2&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=root&password=Powai@123"
