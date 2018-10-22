@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "alerts")
 @AllArgsConstructor
+@NoArgsConstructor
 public class Alerts {
     @Id
     String alertId;

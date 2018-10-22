@@ -17,7 +17,7 @@ public class ReadingsRequest {
     Double latitude;
     Double longitude;
     Timestamp timestamp;
-    Int fuelVolume;
+    Integer fuelVolume;
     Integer speed;
     Integer engineHp;
     Boolean checkEngineLightOn;
