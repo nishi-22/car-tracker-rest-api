@@ -10,10 +10,19 @@ public class TireReadings {
 
     @Id
     String tireReadingId;
+    String vin;
     Integer frontLeft;
     Integer frontRight;
     Integer rearLeft;
     Integer rearRight;
+
+    public String getVin() {
+        return vin;
+    }
+
+    public void setVin(String vin) {
+        this.vin = vin;
+    }
 
     public Integer getFrontLeft() {
         return frontLeft;
