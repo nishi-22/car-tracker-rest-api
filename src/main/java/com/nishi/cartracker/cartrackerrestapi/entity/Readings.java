@@ -1,10 +1,21 @@
 package com.nishi.cartracker.cartrackerrestapi.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.sql.Timestamp;
+
+@Entity
+@Table(name = "readings")
 public class Readings {
+
+    @Id
+    String readingId;
+
     String vin;
-    Integer latitude;
-    Integer longitude;
-    String timestamp;
+    Double latitude;
+    Double longitude;
+    Timestamp timestamp;
     Double fuelVolume;
     Integer speed;
     Integer engineHp;
@@ -13,6 +24,15 @@ public class Readings {
     Boolean cruiseControlOn;
     Integer engineRpm;
     TireReadings tire;
+    String tireReadingId;
+
+    public String getTireReadingId() {
+        return tireReadingId;
+    }
+
+    public void setTireReadingId(String tireReadingId) {
+        this.tireReadingId = tireReadingId;
+    }
 
     public TireReadings getTireReadings() {
         return tire;
@@ -30,27 +50,27 @@ public class Readings {
         this.vin = vin;
     }
 
-    public Integer getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Integer latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public Integer getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Integer longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
-    public String getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -108,5 +128,21 @@ public class Readings {
 
     public void setEngineRpm(Integer engineRpm) {
         this.engineRpm = engineRpm;
+    }
+
+    public String getReadingId() {
+        return readingId;
+    }
+
+    public void setReadingId(String readingId) {
+        this.readingId = readingId;
+    }
+
+    public TireReadings getTire() {
+        return tire;
+    }
+
+    public void setTire(TireReadings tire) {
+        this.tire = tire;
     }
 }

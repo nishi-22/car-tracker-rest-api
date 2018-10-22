@@ -1,9 +1,19 @@
 package com.nishi.cartracker.cartrackerrestapi.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tire_readings")
 public class TireReadings {
+
+    @Id
+    String tireReadingId;
     Integer frontLeft;
     Integer frontRight;
     Integer rearLeft;
+    Integer rearRight;
 
     public Integer getFrontLeft() {
         return frontLeft;
@@ -37,8 +47,12 @@ public class TireReadings {
         this.rearRight = rearRight;
     }
 
-    Integer rearRight;
+    public String getTireReadingId() {
+        return tireReadingId;
+    }
 
-
+    public void setTireReadingId(String tireReadingId) {
+        this.tireReadingId = tireReadingId;
+    }
 
 }
