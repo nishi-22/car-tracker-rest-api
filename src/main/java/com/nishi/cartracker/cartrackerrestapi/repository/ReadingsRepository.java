@@ -14,16 +14,20 @@ public interface ReadingsRepository extends CrudRepository<Readings, String> {
         "SELECT latitude, longitude FROM readings WHERE vin = ?1 and timestamp > (NOW() - INTERVAL 30 minute)";
 
     String GET_FUEL_VOLUME_READINGS =
-        "SELECT TIME_FORMAT(timestamp, \"%h:%i:%s %p\") as name , fuelVolume as value from readings where vin = ?1 and timestamp > (now() - INTERVAL ?2 minute) order by timestamp";
+        "SELECT TIME_FORMAT(timestamp, \"%h:%i:%s %p\") as name , fuelVolume as value " +
+                "from readings where vin = ?1 and timestamp > (now() - INTERVAL ?2 minute) order by timestamp";
 
     String GET_ENGINE_HP_READINGS =
-        "SELECT TIME_FORMAT(timestamp, \"%h:%i:%s %p\") as name, engineHp as value from readings where vin = ?1 and timestamp > (now() - INTERVAL ?2 minute) order by timestamp";
+        "SELECT TIME_FORMAT(timestamp, \"%h:%i:%s %p\") as name, engineHp as value " +
+                "from readings where vin = ?1 and timestamp > (now() - INTERVAL ?2 minute) order by timestamp";
 
     String GET_SPEED_READINGS =
-        "SELECT TIME_FORMAT(timestamp, \"%h:%i:%s %p\") as name, speed as value from readings where vin = ?1 and timestamp > (now() - INTERVAL ?2 minute) order by timestamp";
+        "SELECT TIME_FORMAT(timestamp, \"%h:%i:%s %p\") as name, speed as value " +
+                "from readings where vin = ?1 and timestamp > (now() - INTERVAL ?2 minute) order by timestamp";
 
     String GET_ENGINE_RPM_READINGS =
-        "SELECT TIME_FORMAT(timestamp, \"%h:%i:%s %p\") as name, engineRpm as value from readings where vin = ?1 and timestamp > (now() - INTERVAL ?2 minute)  order by timestamp";
+        "SELECT TIME_FORMAT(timestamp, \"%h:%i:%s %p\") as name, engineRpm as value " +
+                "from readings where vin = ?1 and timestamp > (now() - INTERVAL ?2 minute)  order by timestamp";
 
 
     @Query(value = GET_VEHICLE_LOCATIONS, nativeQuery= true)

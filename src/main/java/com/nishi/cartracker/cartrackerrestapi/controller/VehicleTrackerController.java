@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @CrossOrigin
@@ -39,25 +36,10 @@ public class VehicleTrackerController {
         return "Hello Spring Boot!";
     }
 
-    @RequestMapping(path = "/guestName/{id}", method = RequestMethod.GET)
-    public String getGuestName(@PathVariable("id") String id){
-        return carTrackerDAO.getTaskNameById(id);
-    }
-
-    @RequestMapping(path = "/guestMessage/{id}", method = RequestMethod.GET)
-    public Optional<Entries> getGuestMessage(@PathVariable("id") Integer id){
-        return entriesRepository.findById(id);
-    }
-
-    @RequestMapping(path = "/entries", method = RequestMethod.POST, consumes = "application/json")
-    public  @ResponseBody String addNewUser (@RequestBody Entries entry) {
-       entriesRepository.save(entry);
-       return "saved";
-    }
-
     @RequestMapping(path="/vehicles", method = RequestMethod.GET)
-    public @ResponseBody Iterable<Vehicle> getVehicleList(){
-        return vehicleRepository.findAll();
+    public @ResponseBody
+    Collection<VehicleTable> getVehicleList(){
+        return vehicleRepository.getVehicleTableData();
     }
 
     @RequestMapping(path="/vehicles", method = RequestMethod.PUT, consumes = "application/json")
