@@ -9,6 +9,8 @@ import java.sql.Timestamp;
 @Table(name = "alerts")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Alerts {
     @Id
     String alertId;
@@ -17,3 +19,4 @@ public class Alerts {
     Priority priority;
     Timestamp alertTime;
 }
+

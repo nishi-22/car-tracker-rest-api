@@ -42,6 +42,12 @@ public class VehicleTrackerController {
         return vehicleRepository.getVehicleTableData();
     }
 
+    @RequestMapping(path="/vehicle/{vin}", method = RequestMethod.GET)
+    public @ResponseBody
+    Optional<Vehicle> getVehicleById(@PathVariable("vin") String vin){
+        return vehicleRepository.findById(vin);
+    }
+
     @RequestMapping(path="/vehicles", method = RequestMethod.PUT, consumes = "application/json")
     public @ResponseBody String addNewVehicles(@RequestBody ArrayList<Vehicle> vehicles){
         Iterator<Vehicle> vehicleIterator = vehicles.iterator();
@@ -51,53 +57,8 @@ public class VehicleTrackerController {
         return "saved";
     }
 
-    @RequestMapping(path="/readings", method = RequestMethod.POST, consumes = "application/json")
-    public @ResponseBody String getReadings(@RequestBody ReadingsRequest readingsRequest) throws ParseException {
-        Optional<Vehicle> optionalVehicle = vehicleRepository.findById(readingsRequest.getVin());
-        if(optionalVehicle.isPresent()){
-
-            Readings readings = readingsRequest.getReadingsEntity();
-
-            TireReadings tireReadings = readingsRequest.getTires();
-            // saving readings to DB
-            readingsRepository.save(readings);
-            // saving tire Readings to DB
-            tireReadings.setTireReadingId(readings.getTireReadingId());
-            tireReadings.setVin(readings.getVin());
-            tireReadingsRepository.save(tireReadings);
-            Vehicle vehicle = optionalVehicle.get();
-            ArrayList<Alerts> alerts = new ArrayList<>();
-            try{
-                // Rule: engineRpm > readlineRpm, Priority: HIGH
-                if(readings.getEngineRpm() > vehicle.getRedlineRpm()){
-                    alerts.add(new Alerts(UUID.randomUUID().toString(), readings.getVin(),
-                            Rule.ENGINE_RPM, Priority.HIGH, readingsRequest.getTimestamp()));
-                }
-                // Rule: fuelVolume < 10% of maxFuelVolume, Priority: MEDIUM
-                if (readings.getFuelVolume() < (0.1 * vehicle.getMaxFuelVolume())){
-                    alerts.add(new Alerts(UUID.randomUUID().toString(), readings.getVin(),
-                            Rule.FUEL_VOLUME, Priority.MEDIUM, readingsRequest.getTimestamp()));
-                }
-                // Rule: tire pressure of any tire < 32psi || > 36psi , Priority: LOW
-                // Rule: engineCoolantLow = true || checkEngineLightOn = true, Priority: LOW
-                if(Boolean.TRUE.equals(readings.getEngineCoolantLow())){
-                    alerts.add(new Alerts(UUID.randomUUID().toString(), readings.getVin(),
-                            Rule.ENGINE_COOLANT, Priority.LOW, readingsRequest.getTimestamp()));
-                }
-                if(Boolean.TRUE.equals(readings.getCheckEngineLightOn())){
-                    alerts.add(new Alerts(UUID.randomUUID().toString(), readings.getVin(),
-                            Rule.ENGINE_LIGHT, Priority.LOW, readingsRequest.getTimestamp()));
-                }
-                Iterator<Alerts> alertsIterator = alerts.iterator();
-                while (alertsIterator.hasNext()) {
-                    alertsRepository.save(alertsIterator.next());
-                }
-                return "saved";
-            }catch (Exception e){
-                return e.toString();
-            }
-        }
-        return "404";
-
+    @RequestMapping(path = "/alerts/{vin}", method = RequestMethod.GET)
+    public @ResponseBody ArrayList<Alerts> getAlertsByVIN(@PathVariable("vin") String vin){
+        return alertsRepository.getAlertsByVIN(vin);
     }
 }
